@@ -1,6 +1,24 @@
 const express = require('express');
-const port = 3000;
+const morgan = require('morgan');
 const app = express();
-app.listen(port, (req, res) => {
-  console.log(`Server listening on port ${port}`);
+
+const tourRouter = require('./routes/tourRoutes');
+const userRouter = require('./routes/userRoutes');
+
+//Middlewares
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+}
+app.use((req, res, next) => {
+  console.log('Hello from the middleware');
+  next();
 });
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
+
+//routes
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
+module.exports = app;
