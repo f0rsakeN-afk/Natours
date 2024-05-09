@@ -1,5 +1,5 @@
 /* const fs = require('fs'); */
-const Tour = require('./../model/tourModel');
+const Tour = require('./../model/tourModel')
 /* const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 ); */
@@ -13,7 +13,7 @@ const Tour = require('./../model/tourModel');
     });
   }
   next();
-}; */
+}; 
 /* 
 exports.checkBody = (req, res, next) => {
   if (!req.body.name || req.body.price) {
@@ -29,6 +29,9 @@ exports.getAllTours = (req, res) => {
   console.log(req.requestTime);
   res.status(200).json({
     status: 'success',
+    data: {
+      text: 'hello from naresh'
+    }
     /*    results: tours.length,
        data: {
          tours,
@@ -70,5 +73,8 @@ exports.createTour = async (req, res) => {
 
 exports.updateTour = (req, res) => { };
 
-exports.deleteTour = (req, res) => { };
+exports.deleteTour = (req, res) => { }
+
+
+
 

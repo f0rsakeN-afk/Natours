@@ -17,9 +17,10 @@ exports.createUser = (req, res) => {
     message: 'no content',
   });
 };
-
+//idk what am i writing 
+//idk what am i writing 
 exports.getUser = (req, res) => {
-  const id = req.params.id ;
+  const id = req.params.id;
   const user = users.find((el) => el.id === id);
   res.status(200).json({
     status: 'success',
