@@ -13,8 +13,8 @@ const Tour = require('./../model/tourModel')
     });
   }
   next();
-}; 
-/* 
+}; 2
+/*
 exports.checkBody = (req, res, next) => {
   if (!req.body.name || req.body.price) {
     return res.status(400).json({
@@ -56,6 +56,7 @@ exports.createTour = async (req, res) => {
     newTour.save(); */
 
   try {
+
     const newTour = await Tour.create(req.body);
     res.status(201).json({
       status: 'success',
@@ -74,7 +75,3 @@ exports.createTour = async (req, res) => {
 exports.updateTour = (req, res) => { };
 
 exports.deleteTour = (req, res) => { }
-
-
-
-

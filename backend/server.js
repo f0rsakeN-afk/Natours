@@ -9,7 +9,7 @@ const DB = process.env.DATABASE.replace(
 mongoose
   .connect(DB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
   .then((con) => {
-    //console.log(con.connections);
+    console.log(con.connections);
     console.log('DB connections successful');
   });
 
