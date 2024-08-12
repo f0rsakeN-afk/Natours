@@ -135,6 +135,5 @@ tourSchema.pre('aggregate', function (next) {
 })
 
 module.exports = Tour;
-//Types of middlewares
-//document query aggregate model
+
 

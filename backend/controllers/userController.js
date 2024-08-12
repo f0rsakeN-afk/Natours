@@ -1,45 +1,50 @@
-const fs = require('fs');
-const users = JSON.parse(
+//const fs = require('fs');
+const catchAsync = require('../utils/catchAsync');
+/* const users = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/users.json`)
-);
-exports.getAllUsers = (req, res) => {
+); */
+const User = require('./../model/userModel')
+
+exports.getAllUsers = catchAsync(async (req, res, next) => {
+  const userData = await User.find();
   res.status(200).json({
     status: 'success',
-    results: users.length,
+    results: userData.length,
     data: {
-      users,
+      userData
     },
+  })
+})
+
+
+exports.getUser = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.params.id)
+  res.status(200).json({
+    status: success,
+    data: {
+      user
+    }
+  })
+})
+
+exports.updateUser = catchAsync(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false
   });
-};
-exports.createUser = (req, res) => {
-  res.status(204).json({
-    status: 'success',
-    message: 'no content',
-  });
-};
-//idk what am i writing 
-//idk what am i writing 
-exports.getUser = (req, res) => {
-  const id = req.params.id;
-  const user = users.find((el) => el.id === id);
   res.status(200).json({
     status: 'success',
     data: {
-      user,
-    },
-  });
-};
+      user
+    }
+  })
+})
 
-exports.updateUser = (req, res) => {
+exports.deleteUser = catchAsync(async (req, res, next) => {
+  await User.findByIdAndDelete(req.params.id);
   res.status(204).json({
     status: 'success',
-    message: 'no content',
-  });
-};
-
-exports.deleteUser = (req, res) => {
-  res.status(204).json({
-    status: 'failed',
-    message: 'no content',
-  });
-};
+    data: null
+  })
+})

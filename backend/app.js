@@ -5,7 +5,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const AppError = require('./utils/appError');
-const globalErrorHandler = require('./controllers/errorController');
+//const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 
@@ -35,5 +35,5 @@ app.all('*', (req, res, next) => {
 
 
 
-app.use(globalErrorHandler);
+
 module.exports = app;
