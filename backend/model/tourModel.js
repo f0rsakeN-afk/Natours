@@ -150,11 +150,21 @@ tourSchema.pre(/^find/, function (next) {
   next();
 });
 
+tourSchema.pre(/^find/,function(next){
+  this.polpulate({
+    path: 'guides',
+    select: '-__v -passwordChangedAt',
+  });
+})
+
 tourSchema.post(/^find/, function (docs, next) {
   console.log(`Query hook took ${Date.now() - this.start} ms`);
   console.log(docs);
   next();
 });
+
+
+
 
 //AGGREGATION middleware
 tourSchema.pre('aggregate', function (next) {
