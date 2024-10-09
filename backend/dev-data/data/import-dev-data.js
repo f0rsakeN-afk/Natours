@@ -17,7 +17,7 @@ mongoose.connect(DB, { useNewUrlParser: true, useUnifiedTopology: true, useCreat
 });
 
 // Read JSON file
-const toursFilePath = path.resolve(__dirname, 'tours-simple.json');
+const toursFilePath = path.resolve(__dirname, 'tours.json');
 const tours = JSON.parse(fs.readFileSync(toursFilePath, 'utf-8'));
 
 // Import data into database

@@ -1,40 +1,43 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
-process.on('uncaughtException', err => {
-  console.log('Unhandled Exception! Shutting down');
-  console.log(err.name, err.message);
-  process.exit(1);
-})
-
-
 const app = require('./app');
 dotenv.config({ path: './config.env' });
-const DB = process.env.DATABASE.replace(
-  '<password>',
-  process.env.DATABASE_PASSWORD
-);
+
+// Add error checking for DATABASE
+const DATABASE = process.env.DATABASE;
+
+if (!DATABASE) {
+  console.error('DATABASE environment variable is not set');
+  process.exit(1);
+}
+
+const DB = DATABASE.replace('<password>', process.env.DATABASE_PASSWORD);
+
 mongoose
-  .connect(DB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-  .then((con) => {
-    //console.log(con.connections);
-    console.log('DB connections successful');
+  .connect(DB,{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .then(() => {
+    console.log('DB connection successful');
+  })
+  .catch((err) => {
+    console.error('DB connection error:', err);
+    process.exit(1);
   });
 
-
-
-
-const port = process.env.PORT;
-app.listen(port, () => {
+const port = process.env.PORT || 3000;
+const server = app.listen(port, () => {
   console.log(`App running on port ${port}`);
 });
 
-process.on('unhandledRejection', err => {
+process.on('unhandledRejection', (err) => {
   console.log('Unhandled rejection! Shutting down');
   console.log(err.name, err.message);
-  Server.close(() => {
+  server.close(() => {
     process.exit(1);
-  })
-})
-
-
+  });
+});
